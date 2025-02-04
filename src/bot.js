@@ -15,16 +15,25 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // Create a commands collection
 client.commands = new Collection();
 
-const commandsPath = path.join(__dirname, 'src', 'commands');
+const commandsPath = path.join(__dirname, 'commands');
+console.log(`✅ Commands directory path: ${commandsPath}`);
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+console.log(`✅ Found command files: ${commandFiles}`);
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
-	const command = require(filePath);
-	// Key as command name, value as exported module
-	if ('data' in command && 'execute' in command) {
-		client.commands.set(command.data.name, command);
-	} else {
-		console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+	console.log(`📂 Loading command from: ${path.basename(filePath)}`);
+
+	try {
+		const command = require(filePath);
+		// Key as command name, value as exported module
+		if ('data' in command && 'execute' in command) {
+			client.commands.set(command.data.name, command);
+			console.log(`✅ Command "${command.data.name}" loaded successfully.`);
+		} else {
+			console.log(`[WARNING] The command at ${path.basename(filePath)} is missing a required "data" or "execute" property.`);
+		}
+	} catch (error) {
+		console.error(`❌ Error loading command at ${filePath}:`, error);
 	}
 }
 
