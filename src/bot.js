@@ -7,7 +7,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 // Require discord.js classes
-const { Client, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 
 // Create a client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
