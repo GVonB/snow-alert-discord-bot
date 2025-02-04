@@ -2,6 +2,10 @@
 require('dotenv').config();
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 
+// Basic modules for file system and file paths
+const fs = require('node:fs');
+const path = require('node:path');
+
 // Require discord.js classes
 const { Client, Events, GatewayIntentBits } = require('discord.js');
 
