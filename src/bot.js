@@ -9,7 +9,7 @@ const { Client, Events, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.once(Events.ClientReady, readyClient => {
-    console.log(`Logged in as ${readyClient.user.tag}`);
+	console.log(`Logged in as ${readyClient.user.tag}`);
 });
 
 // Log in to Discord with client's token
