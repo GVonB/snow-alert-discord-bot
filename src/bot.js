@@ -12,6 +12,9 @@ const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 // Create a client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
+// Create a commands collection
+client.commands = new Collection();
+
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Logged in as ${readyClient.user.tag}`);
 });
