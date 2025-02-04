@@ -37,6 +37,10 @@ for (const file of commandFiles) {
 	}
 }
 
+client.on(Events.InteractionCreate, interaction => {
+	console.log(interaction);
+});
+
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Logged in as ${readyClient.user.tag}`);
 });
