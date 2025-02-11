@@ -23,8 +23,8 @@ module.exports = {
 						replyMessage += `${days[i]}: ${snowfallSums[i]} inch\n`;
 					} else {
 					    replyMessage += `${days[i]}: ${snowfallSums[i]} inches\n`;
-                    }
-                }
+					}
+				}
 			}
 
 			if (!replyMessage) {
