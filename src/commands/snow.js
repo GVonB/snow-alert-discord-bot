@@ -20,9 +20,9 @@ module.exports = {
 			for (let i = 0; i < days.length; i++) {
 				if (snowfallSums[i] > 0) {
 					if (snowfallSums[i] === 1.0) {
-						replyMessage += `${days[i]}: ${snowfallSums[i]} inch\n`;
+						replyMessage += `${days[i].substr(5)}: ${snowfallSums[i]} inch\n`;
 					} else {
-					    replyMessage += `${days[i]}: ${snowfallSums[i]} inches\n`;
+					    replyMessage += `${days[i].substr(5)}: ${snowfallSums[i]} inches\n`;
 					}
 				}
 			}
