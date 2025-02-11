@@ -1,5 +1,19 @@
+const axios = require('axios');
+
+// Sample coords of New York City
+const DEFAULT_LATITUDE = '40.7128';
+const DEFAULT_LONGITUDE = '-74.0060';
+
 async function fetchWeather() {
-	// API Call
+	try {
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${DEFAULT_LATITUDE}&longitude=${DEFAULT_LONGITUDE}&hourly=temperature_2m,rain,showers,snowfall,snow_depth`;
+        const response = await axios.get(url);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+        throw error;
+        
+    }
 	return 'Snow expected!';
 }
 
