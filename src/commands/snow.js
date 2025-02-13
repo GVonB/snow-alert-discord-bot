@@ -12,7 +12,7 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('state')
 				.setDescription('The state to check forecast for')
-				.setRequired(true)
+				.setRequired(true),
 		),
 	async execute(interaction) {
 		await interaction.reply('Checking weather for snow...');
