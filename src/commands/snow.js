@@ -4,7 +4,16 @@ const { fetchWeather } = require('../utils/weather');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('snow')
-		.setDescription('Checks if it will snow this week'),
+		.setDescription('Checks if it will snow this week')
+		.addStringOption(option =>
+			option.setName('city')
+				.setDescription('The city to check forecast for')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('state')
+				.setDescription('The state to check forecast for')
+				.setRequired(true)
+		),
 	async execute(interaction) {
 		await interaction.reply('Checking weather for snow...');
 
