@@ -5,14 +5,15 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('snow')
 		.setDescription('Checks if it will snow this week')
-		.addStringOption(option =>
+		.addIntegerOption(option =>
+			option.setName('zip')
+				.setDescription('The ZIP Code of the location you would like to check'),
+		).addStringOption(option =>
 			option.setName('city')
-				.setDescription('The city to check forecast for')
-				.setRequired(true))
+				.setDescription('The city to check forecast for'))
 		.addStringOption(option =>
 			option.setName('state')
-				.setDescription('The state to check forecast for')
-				.setRequired(true),
+				.setDescription('The state to check forecast for'),
 		),
 	async execute(interaction) {
 		await interaction.reply('Checking weather for snow...');
