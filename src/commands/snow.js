@@ -35,19 +35,20 @@ module.exports = {
 			const snowfallSums = weatherData.daily.snowfall_sum;
 
 			// Build a reply message with only days that have snowfall
-			let replyMessage = '';
+			const lines = [];
 			for (let i = 0; i < days.length; i++) {
 				if (snowfallSums[i] > 0) {
-					if (snowfallSums[i] === 1.0) {
-						replyMessage += `${days[i].substr(5)}: ${snowfallSums[i]} inch\n`;
-					} else {
-					    replyMessage += `${days[i].substr(5)}: ${snowfallSums[i]} inches\n`;
-					}
+					const inches = snowfallSums[i] === 1 ? 'inch' : 'inches';
+					lines.push(`${days[i].substr(5)}: ${snowfallSums[i]} ${inches}`);
 				}
 			}
 
-			if (!replyMessage) {
-				replyMessage = 'No snowfall forecast this week.';
+			let replyMessage;
+
+			if (lines.length === 0) {
+				replyMessage = `No snowfall forecasted this week for ${location}.`;
+			} else {
+				replyMessage = `Snow forecast for ${location}:\n` + lines.join('\n');
 			}
 
 			// Edit the deferred reply with message
