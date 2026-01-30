@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { fetchWeather } = require('../utils/weather');
+const { fetchWeather, getCoordinatesFromZip } = require('../utils/weather');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -8,18 +8,27 @@ module.exports = {
 		.addIntegerOption(option =>
 			option.setName('zip')
 				.setDescription('The ZIP Code of the location you would like to check'),
-		).addStringOption(option =>
-			option.setName('city')
-				.setDescription('The city to check forecast for'))
-		.addStringOption(option =>
-			option.setName('state')
-				.setDescription('The state to check forecast for'),
 		),
 	async execute(interaction) {
-		await interaction.reply('Checking weather for snow...');
+		const zipCode = interaction.options.getInteger('zip');
+
+		let location = 'New York, NY';
+		await interaction.reply(`Checking weather for snow in ${location}...`);
 
 		try {
-			const weatherData = await fetchWeather();
+			let latitude, longitude;
+
+			// If zip code provided, get coordinates
+			if (zipCode) {
+				const coords = await getCoordinatesFromZip(zipCode);
+				latitude = coords.latitude;
+				longitude = coords.longitude;
+				location = coords.placeName;
+				// Update the message with the actual location
+				await interaction.editReply(`Checking weather for snow in ${location}...`);
+			}
+
+			const weatherData = await fetchWeather(latitude, longitude);
 			// format: time: ["2025-02-11", "2025-02-12", ...]
 			const days = weatherData.daily.time;
 			// format: snowfall_sum: [0, 0, .41, ...]
