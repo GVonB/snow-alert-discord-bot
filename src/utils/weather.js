@@ -10,7 +10,7 @@ const DEFAULT_LONGITUDE = '-74.0060';
  */
 async function getCoordinatesFromZip(zipCode) {
 	try {
-		const response = await axios.get(`https://api.zippopotam.us/us/${zipCode}`);
+		const response = await axios.get(`https://api.zippopotam.us/us/${encodeURIComponent(zipCode)}`);
 		const place = response.data.places[0];
 		return {
 			latitude: place.latitude,
