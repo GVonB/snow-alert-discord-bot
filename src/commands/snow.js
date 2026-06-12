@@ -5,12 +5,14 @@ module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('snow')
 		.setDescription('Checks if it will snow this week')
-		.addIntegerOption(option =>
+		.addStringOption(option =>
 			option.setName('zip')
-				.setDescription('The ZIP Code of the location you would like to check'),
+				.setDescription('The ZIP/postal code of the location you would like to check')
+				.setMinLength(3)
+				.setMaxLength(10),
 		),
 	async execute(interaction) {
-		const zipCode = interaction.options.getInteger('zip');
+		const zipCode = interaction.options.getString('zip')?.trim();
 
 		let location = 'New York, NY';
 		await interaction.deferReply();
