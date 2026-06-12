@@ -13,7 +13,7 @@ module.exports = {
 		const zipCode = interaction.options.getInteger('zip');
 
 		let location = 'New York, NY';
-		await interaction.reply(`Checking weather for snow in ${location}...`);
+		await interaction.deferReply();
 
 		try {
 			let latitude, longitude;
@@ -24,8 +24,6 @@ module.exports = {
 				latitude = coords.latitude;
 				longitude = coords.longitude;
 				location = coords.placeName;
-				// Update the message with the actual location
-				await interaction.editReply(`Checking weather for snow in ${location}...`);
 			}
 
 			const weatherData = await fetchWeather(latitude, longitude);
